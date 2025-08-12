@@ -1,33 +1,524 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Meine Kirche</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neue Gemeinde | Willkommen bei uns</title>
+    <style>
+        /* Modernes Minimal-Design - für echte Projekte in separate CSS-Datei auslagern */
+        :root {
+            --primary: #2c6e49;
+            --secondary: #4c956c;
+            --light: #fefee3;
+            --dark: #1d3557;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x900/?church') center/cover;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn:hover {
+            background: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            margin-left: 1rem;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--secondary);
+        }
+        
+        /* Sections */
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin: 1.5rem 0;
+            color: var(--dark);
+        }
+        
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            background: var(--light) url('https://source.unsplash.com/600x400/?worship') center/cover;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        /* Events */
+        .events-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .event-item {
+            display: flex;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .event-date {
+            background: var(--primary);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .event-date .day {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .event-date .month {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Meine Kirche</h1>
-    <nav>
-      <a href="index.html">Start</a>
-      <a href="about.html">Über uns</a>
-      <a href="services.html">Gottesdienste</a>
-      <a href="events.html">Veranstaltungen</a>
-      <a href="media.html">Medien</a>
-      <a href="contact.html">Kontakt</a>
-      <a href="donate.html">Spenden</a>
-    </nav>
-  </header>
+    <!-- Header mit Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <span class="logo-icon">⛪</span>
+                    Neue Gemeinde
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#about">Über uns</a></li>
+                    <li><a href="#services">Gottesdienste</a></li>
+                    <li><a href="#events">Veranstaltungen</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <main>
+    <!-- Hero Section -->
     <section class="hero">
-      <h2>Herzlich willkommen!</h2>
-      <p>Wir freuen uns auf dich – jeden Sonntag um 10:00 Uhr.</p>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Gemeinschaft, die bewegt</h1>
+                <p>Willkommen bei der Neuen Gemeinde – ein Ort der Hoffnung, des Wachstums und der Begegnung</p>
+                <a href="#services" class="btn">Gottesdienstzeiten</a>
+                <a href="#contact" class="btn btn-secondary">Kontakt aufnehmen</a>
+            </div>
+        </div>
     </section>
-  </main>
 
-  <footer>&copy; 2025 Meine Kirche</footer>
-  <script src="script.js"></script>
+    <!-- Über uns Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Über uns</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <div style="height: 400px; background: var(--light) url('https://source.unsplash.com/800x600/?community') center/cover; border-radius: 10px;"></div>
+                </div>
+                <div class="about-text">
+                    <h3>Wir sind eine moderne Gemeinde für alle Generationen</h3>
+                    <p>Seit 1995 sind wir eine lebendige christliche Gemeinschaft mitten in der Stadt. Unsere Mission ist es, durch authentische Beziehungen, kraftvolle Anbetung und biblisch fundierte Lehre Leben zu verändern.</p>
+                    <p>Bei uns finden Menschen jeden Alters einen Ort der Zugehörigkeit – von jungen Familien über Berufstätige bis zu Senioren. Wir glauben an eine Kirche, die nicht nur in den vier Wänden eines Gemeindehauses lebt, sondern aktiv in der Stadt präsent ist.</p>
+                    <a href="#" class="btn" style="margin-top: 1.5rem;">Mehr über unsere Vision</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gottesdienste Section -->
+    <section id="services" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Gottesdienste</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img"></div>
+                    <div class="service-content">
+                        <h3>Sonntags-Gottesdienst</h3>
+                        <p><strong>Wann:</strong> Jeden Sonntag, 10:00 Uhr</p>
+                        <p><strong>Ort:</strong> Gemeindezentrum, Hauptstraße 45</p>
+                        <p>Ein Gottesdienst mit moderner Anbetung, biblischer Predigt und Fürbitte für die ganze Familie.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('https://source.unsplash.com/600x400/?youth');"></div>
+                    <div class="service-content">
+                        <h3>Jugendgottesdienst</h3>
+                        <p><strong>Wann:</strong> Jeden Freitag, 19:30 Uhr</p>
+                        <p><strong>Ort:</strong> Jugendhaus, Kirchplatz 2</p>
+                        <p>Ein dynamischer Gottesdienst speziell für Jugendliche und junge Erwachsene mit aktueller Musik und relevanten Themen.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('https://source.unsplash.com/600x400/?prayer');"></div>
+                    <div class="service-content">
+                        <h3>Mittwochs-Gebetskreis</h3>
+                        <p><strong>Wann:</strong> Jeden Mittwoch, 19:00 Uhr</p>
+                        <p><strong>Ort:</strong> Gemeindezentrum, Raum 3</p>
+                        <p>Tiefer in die Anbetung eintauchen und gemeinsam für unsere Stadt beten – eine Zeit der Erneuerung und Kraft.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Veranstaltungen Section -->
+    <section id="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kommende Veranstaltungen</h2>
+            </div>
+            <div class="events-list">
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="day">15</span>
+                        <span class="month">Aug</span>
+                    </div>
+                    <div>
+                        <h3>Gemeindefest im Park</h3>
+                        <p>Unser jährliches Gemeindefest mit Live-Musik, Essen und Aktivitäten für die ganze Familie. Komm vorbei und lerne uns kennen!</p>
+                        <p><strong>Uhrzeit:</strong> 14:00 - 20:00 Uhr | <strong>Ort:</strong> Stadtpark</p>
+                    </div>
+                </div>
+                
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="day">22</span>
+                        <span class="month">Aug</span>
+                    </div>
+                    <div>
+                        <h3>Bibeltage für Familien</h3>
+                        <p>Ein spannendes Wochenende mit Bibelgeschichten, Workshops und gemeinsamen Aktivitäten für Eltern und Kinder.</p>
+                        <p><strong>Uhrzeit:</strong> Freitag 18:00 - Sonntag 14:00 | <strong>Ort:</strong> Gemeindezentrum</p>
+                    </div>
+                </div>
+                
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="day">05</span>
+                        <span class="month">Sep</span>
+                    </div>
+                    <div>
+                        <h3>Missionstag</h3>
+                        <p>Erfahre mehr über unsere weltweiten Missionsprojekte und wie du dich engagieren kannst.</p>
+                        <p><strong>Uhrzeit:</strong> 18:30 - 20:00 Uhr | <strong>Ort:</strong> Gemeindezentrum</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="#" class="btn">Alle Veranstaltungen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Neue Gemeinde</h3>
+                    <p>Eine moderne christliche Gemeinde, die durch Glauben, Liebe und Dienst Menschen erreicht und Leben verändert.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><span>IG</span></a>
+                        <a href="#" aria-label="Facebook"><span>FB</span></a>
+                        <a href="#" aria-label="YouTube"><span>YT</span></a>
+                        <a href="#" aria-label="Spotify"><span>SP</span></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <p><strong>Adresse:</strong> Hauptstraße 45, 10115 Berlin</p>
+                    <p><strong>Telefon:</strong> +49 30 12345678</p>
+                    <p><strong>E-Mail:</strong> info@neuegemeinde.de</p>
+                    <p><strong>Öffnungszeiten Büro:</strong> Mo-Do 9-16 Uhr</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Gottesdienstzeiten</h3>
+                    <p><strong>Sonntag:</strong> 10:00 Uhr (Hauptgottesdienst)</p>
+                    <p><strong>Mittwoch:</strong> 19:00 Uhr (Gebetskreis)</p>
+                    <p><strong>Freitag:</strong> 19:30 Uhr (Jugendgottesdienst)</p>
+                    <p><a href="#" class="btn" style="margin-top: 1rem; background: var(--secondary);">Zum Livestream</a></p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Neue Gemeinde. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
